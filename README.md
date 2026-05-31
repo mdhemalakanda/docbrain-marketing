@@ -23,11 +23,13 @@ The hero includes a **glass-style inline demo video** with animated glow — pau
 |--------|------|
 | **Source (record in dashboard)** | `docbrain/dashboard/public/demo/docbrain-sales-agent-demo.mp4` |
 | **Marketing copy (hero modal)** | `public/demo/docbrain-sales-agent-demo.mp4` |
+| **Hero poster banner** | `public/demo/docbrain-sales-agent-demo-poster.jpg` |
 
 **After re-recording the dashboard demo**, refresh the marketing copy:
 
 ```bash
 cp ../../docbrain/dashboard/public/demo/docbrain-sales-agent-demo.mp4 public/demo/
+ffmpeg -y -ss 3 -i public/demo/docbrain-sales-agent-demo.mp4 -frames:v 1 -update 1 -q:v 2 public/demo/docbrain-sales-agent-demo-poster.jpg
 ```
 
 Optional override: `NEXT_PUBLIC_DEMO_VIDEO_URL` in `.env.local`.

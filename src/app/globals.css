@@ -1127,6 +1127,81 @@ body {
   backdrop-filter: blur(2px);
 }
 
+.demo-video-banner {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background: #0a1218;
+}
+
+.demo-video-banner-gradient {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(5, 10, 16, 0.55) 0%, rgba(5, 10, 16, 0.18) 38%, rgba(5, 10, 16, 0.72) 100%),
+    linear-gradient(115deg, rgba(16, 185, 129, 0.18) 0%, transparent 42%);
+}
+
+.demo-video-banner-shine {
+  position: absolute;
+  inset: -40% -20%;
+  background: linear-gradient(
+    105deg,
+    transparent 42%,
+    rgba(255, 255, 255, 0.07) 50%,
+    transparent 58%
+  );
+  animation: demo-video-banner-shine 7s ease-in-out infinite;
+}
+
+.demo-video-banner-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(110, 231, 183, 0.35);
+  background: rgba(16, 185, 129, 0.14);
+  padding: 0.28rem 0.65rem;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(209, 250, 229, 0.95);
+  backdrop-filter: blur(8px);
+}
+
+.demo-video-banner-badge-muted {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.demo-video-banner-cta {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.35rem 0.75rem;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(8px);
+}
+
+@keyframes demo-video-banner-shine {
+  0%,
+  100% {
+    transform: translateX(-8%) rotate(8deg);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translateX(12%) rotate(8deg);
+    opacity: 0.75;
+  }
+}
+
 @keyframes demo-video-aurora-drift {
   0% {
     transform: translate3d(0, 0, 0) scale(1);
@@ -1151,7 +1226,8 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .demo-video-hero-aurora,
-  .demo-video-hero-ring {
+  .demo-video-hero-ring,
+  .demo-video-banner-shine {
     animation: none;
   }
 }

@@ -6,4 +6,11 @@ export function getDemoVideoUrl(): string {
   return "/demo/docbrain-sales-agent-demo.mp4";
 }
 
+export function getDemoVideoPosterUrl(): string {
+  const explicit = process.env.NEXT_PUBLIC_DEMO_VIDEO_POSTER_URL?.trim();
+  if (explicit) return explicit;
+
+  return "/demo/docbrain-sales-agent-demo-poster.jpg";
+}
+
 export const DEMO_VIDEO_TITLE = "DocBrain Sales Agent — full walkthrough";
