@@ -17,7 +17,7 @@ Open **http://localhost:3001**
 
 ## Hero demo video (sales agent walkthrough)
 
-The hero includes an **animated play button** that opens a full-screen modal with the narrated dashboard demo.
+The hero includes a **glass-style inline demo video** with animated glow — paused by default; click to play in place.
 
 | Output | Path |
 |--------|------|

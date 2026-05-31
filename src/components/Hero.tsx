@@ -4,7 +4,7 @@ import { animate, createTimeline, stagger } from "animejs";
 import { useEffect, useRef } from "react";
 import { HERO_EASE, prefersReducedMotion } from "@/lib/motion";
 import { ChatMockup } from "./ChatMockup";
-import { DemoVideoPlayButton } from "./DemoVideoPlayButton";
+import { DemoVideoHeroCard } from "./DemoVideoHeroCard";
 import { EarlyAccessForm } from "./EarlyAccessForm";
 import { AnimateIn } from "./ui/AnimateIn";
 import { MagneticButton } from "./ui/MagneticButton";
@@ -154,9 +154,9 @@ export function Hero() {
 
           <div
             data-hero-play-wrap
-            className="anime-hero-pending mt-8 flex justify-center"
+            className="anime-hero-pending mx-auto mt-10 w-full max-w-4xl"
           >
-            <DemoVideoPlayButton />
+            <DemoVideoHeroCard />
           </div>
 
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:mt-10 sm:flex-row">
