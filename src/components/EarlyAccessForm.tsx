@@ -392,16 +392,18 @@ export function EarlyAccessForm(props: Props) {
 
     async function loadConfig() {
       try {
-        const response = await fetch("/api/stripe/public");
+        const response = await fetch("/api/stripe/public", { cache: "no-store" });
         const data = (await response.json()) as StripePublicConfig;
-        if (!cancelled && response.ok) {
-          setConfig({
-            configured: Boolean(data.configured && data.publishableKey),
-            publishableKey: data.publishableKey?.trim() ?? "",
-            trialDays: data.trialDays ?? 10,
-            loaded: true,
-          });
-        }
+        if (cancelled) return;
+
+        setConfig({
+          configured: Boolean(
+            response.ok && data.configured && data.publishableKey?.trim()
+          ),
+          publishableKey: data.publishableKey?.trim() ?? "",
+          trialDays: data.trialDays ?? 10,
+          loaded: true,
+        });
       } catch {
         if (!cancelled) {
           setConfig({
