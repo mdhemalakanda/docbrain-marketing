@@ -19,6 +19,7 @@ type StripePublicConfig = {
   configured: boolean;
   publishableKey: string;
   trialDays: number;
+  loaded?: boolean;
 };
 
 const stripeAppearance: StripeElementsOptions["appearance"] = {
@@ -210,10 +211,12 @@ function EarlyAccessFormFlow({
   compact = false,
   className = "",
   stripeConfigured,
+  stripeConfigLoaded = true,
   trialDays,
   stripePromise,
 }: Props & {
   stripeConfigured: boolean;
+  stripeConfigLoaded?: boolean;
   trialDays: number;
   stripePromise: ReturnType<typeof loadStripe> | null;
 }) {
@@ -261,7 +264,11 @@ function EarlyAccessFormFlow({
     }
     if (!stripeConfigured) {
       setStatus("error");
-      setMessage("Payment setup is not available right now.");
+      setMessage(
+        stripeConfigLoaded
+          ? "Payment setup is not available right now. Please try again later."
+          : "Payment setup is still loading. Please wait a moment."
+      );
       return;
     }
 
@@ -347,19 +354,25 @@ function EarlyAccessFormFlow({
 
       <button
         type="submit"
-        disabled={status === "loading"}
+        disabled={status === "loading" || !stripeConfigLoaded || !stripeConfigured}
         className="btn-submit mt-4 w-full rounded-xl bg-white py-3.5 text-sm font-semibold text-black disabled:opacity-60"
       >
-        {status === "loading" ? "Loading…" : "Continue to payment"}
+        {status === "loading"
+          ? "Loading…"
+          : !stripeConfigLoaded
+            ? "Loading payment…"
+            : "Continue to payment"}
       </button>
 
       {message ? (
         <p className="mt-3 text-center text-sm text-red-400">{message}</p>
       ) : (
         <p className="mt-3 text-center text-xs text-white/40">
-          {stripeConfigured
-            ? `${trialLabel} · Card required · Not charged until trial ends`
-            : "Payment setup loading…"}
+          {!stripeConfigLoaded
+            ? "Checking payment setup…"
+            : stripeConfigured
+              ? `${trialLabel} · Card required · Not charged until trial ends`
+              : "Payment is temporarily unavailable. Refresh the page or contact support."}
         </p>
       )}
     </form>
@@ -371,6 +384,7 @@ export function EarlyAccessForm(props: Props) {
     configured: false,
     publishableKey: "",
     trialDays: 10,
+    loaded: false,
   });
 
   useEffect(() => {
@@ -385,11 +399,17 @@ export function EarlyAccessForm(props: Props) {
             configured: Boolean(data.configured && data.publishableKey),
             publishableKey: data.publishableKey?.trim() ?? "",
             trialDays: data.trialDays ?? 10,
+            loaded: true,
           });
         }
       } catch {
         if (!cancelled) {
-          setConfig({ configured: false, publishableKey: "", trialDays: 10 });
+          setConfig({
+            configured: false,
+            publishableKey: "",
+            trialDays: 10,
+            loaded: true,
+          });
         }
       }
     }
@@ -409,6 +429,7 @@ export function EarlyAccessForm(props: Props) {
     <EarlyAccessFormFlow
       {...props}
       stripeConfigured={config.configured}
+      stripeConfigLoaded={config.loaded}
       trialDays={config.trialDays}
       stripePromise={stripePromise}
     />
