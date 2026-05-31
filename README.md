@@ -106,7 +106,7 @@ GitHub Pages **cannot** run this app — it needs server routes for Stripe and l
    - `STRIPE_PRICE_ID_SILVER`
    - `DOCBRAIN_APP_URL` (your live dashboard URL, e.g. `https://app.docbrain.com`)
    - Optional: `STRIPE_TRIAL_DAYS`, `LEADS_WEBHOOK_URL`, `RESEND_API_KEY`, etc.
-4. Deploy — Vercel auto-redeploys on every push to `main`.
+4. Deploy — Vercel auto-redeploys on every push to `main`. Production URL: **https://docbrain-agent.vercel.app**
 
 ### GitHub repository
 
