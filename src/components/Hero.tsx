@@ -4,6 +4,7 @@ import { animate, createTimeline, stagger } from "animejs";
 import { useEffect, useRef } from "react";
 import { HERO_EASE, prefersReducedMotion } from "@/lib/motion";
 import { ChatMockup } from "./ChatMockup";
+import { DemoVideoPlayButton } from "./DemoVideoPlayButton";
 import { EarlyAccessForm } from "./EarlyAccessForm";
 import { AnimateIn } from "./ui/AnimateIn";
 import { MagneticButton } from "./ui/MagneticButton";
@@ -23,6 +24,7 @@ export function Hero() {
     const gradientLine = section.querySelector<HTMLElement>("[data-hero-gradient]");
     const sub = section.querySelector<HTMLElement>("[data-hero-sub]");
     const ctas = section.querySelectorAll<HTMLElement>("[data-hero-cta]");
+    const play = section.querySelector<HTMLElement>("[data-hero-play-wrap]");
     const fine = section.querySelector<HTMLElement>("[data-hero-fine]");
 
     if (!label || !headline || !sub) return;
@@ -77,21 +79,35 @@ export function Hero() {
       sub,
       { opacity: [0, 1], y: [24, 0], filter: ["blur(8px)", "blur(0px)"], duration: 800 },
       450
-    )
-      .add(
-        ctas,
+    );
+
+    if (play) {
+      tl.add(
+        play,
         {
           opacity: [0, 1],
-          y: [20, 0],
-          scale: [0.94, 1],
-          duration: 650,
-          delay: stagger(100),
+          y: [18, 0],
+          scale: [0.9, 1],
+          duration: 700,
         },
-        600
+        580
       );
+    }
+
+    tl.add(
+      ctas,
+      {
+        opacity: [0, 1],
+        y: [20, 0],
+        scale: [0.94, 1],
+        duration: 650,
+        delay: stagger(100),
+      },
+      720
+    );
 
     if (fine) {
-      tl.add(fine, { opacity: [0, 1], duration: 500 }, 850);
+      tl.add(fine, { opacity: [0, 1], duration: 500 }, 950);
     }
 
     return () => {
@@ -136,7 +152,14 @@ export function Hero() {
             Telegram, and more.
           </p>
 
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <div
+            data-hero-play-wrap
+            className="anime-hero-pending mt-8 flex justify-center"
+          >
+            <DemoVideoPlayButton />
+          </div>
+
+          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:mt-10 sm:flex-row">
             <MagneticButton
               href="#early-access"
               className="btn-primary btn-shimmer anime-hero-pending w-full sm:w-auto"

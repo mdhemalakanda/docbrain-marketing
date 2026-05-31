@@ -15,6 +15,45 @@ npm run dev
 
 Open **http://localhost:3001**
 
+## Hero demo video (sales agent walkthrough)
+
+The hero includes an **animated play button** that opens a full-screen modal with the narrated dashboard demo.
+
+| Output | Path |
+|--------|------|
+| **Source (record in dashboard)** | `docbrain/dashboard/public/demo/docbrain-sales-agent-demo.mp4` |
+| **Marketing copy (hero modal)** | `public/demo/docbrain-sales-agent-demo.mp4` |
+
+**After re-recording the dashboard demo**, refresh the marketing copy:
+
+```bash
+cp ../../docbrain/dashboard/public/demo/docbrain-sales-agent-demo.mp4 public/demo/
+```
+
+Optional override: `NEXT_PUBLIC_DEMO_VIDEO_URL` in `.env.local`.
+
+## Promo video (WordPress plugin)
+
+A **~38s** animated promo is generated from a dedicated recorder page (smooth scene transitions, mockups — no login required).
+
+| Output | Path |
+|--------|------|
+| **MP4 (share on social / ads)** | `public/promo/docbrain-wordpress-plugin-promo.mp4` |
+| **WebM** | `public/promo/docbrain-wordpress-plugin-promo.webm` |
+| **Preview in browser** | [http://localhost:3001/promo-video](http://localhost:3001/promo-video) |
+
+**Regenerate after copy or design changes:**
+
+```bash
+cd plugins/docbrain-marketing
+npm run dev          # terminal 1 — port 3001
+npm run record-promo # terminal 2 — needs ffmpeg + Playwright Chromium
+```
+
+First run: `npx playwright install chromium`. Requires **ffmpeg** (`brew install ffmpeg` on macOS).
+
+Scenes: intro → problem → WordPress plugin setup → live chat → catalog AI → order + email → free-trial CTA.
+
 Use the same Stripe test keys and `STRIPE_PRICE_ID_SILVER` as `docbrain/dashboard`. After a visitor completes the form, they are redirected to create a DocBrain account at `DOCBRAIN_APP_URL/signup`.
 
 ## Free trial flow (Stripe)
@@ -49,7 +88,7 @@ Dependency: `animejs` (v4). Helpers live in `src/lib/motion.ts` and `src/compone
 
 | Section | What it explains |
 |--------|------------------|
-| **Hero** | Headline, live chat mockup, free-trial form |
+| **Hero** | Headline, **animated demo play button** (modal video), live chat mockup, free-trial form |
 | **One Agent. Four Outcomes.** | Catalog → chat → checkout → email pipeline |
 | **5-step process** | Agent setup → channels → customer chat → sales → owner dashboard (StorePix-style UI mockups) |
 | **Sales flow** | 7-step customer journey from first message to fulfillment |
